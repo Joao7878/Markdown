@@ -154,9 +154,9 @@ Remember:
   </form>
 ```
 
-## MVC AND EXPRESS
+# MVC AND EXPRESS
 
-
+## Controllers
 We will use a folder only for routes and we will use the MVC pattern  
 We are going to create a routes.js file and we are going to put our routes in it.  
 ```js
@@ -270,3 +270,77 @@ route.get("/contato", contatoController.contato);
 module.exports = route;
 ```
 Our server.js stay the same  
+## Views 
+At now our project have back-end and front-end together, but we will gonna create folders for back and front end  
+We will create a folder src for the backend and will move the controllers for the src folder  
+Now we will create a folder for the Views   
+At now our project is like:  
+![Project](./../img/project.png)  
+We need to tell express that we are going to use the views folder as views and what engine will it use to render the views  
+To do that:
+```js
+server.js
+...
+const path = require("path");
+app.use(express.urlencoded({ extended: true }));
+app.set("views", path.resolve(__dirname, "src", "views"));
+app.set("view engine", "ejs");
+...
+```
+Let's pass as a parameter that we want to set the views and after that we'll pass the folder path  
+Let's pass a second set function to say the view engine, we gonna use the ejs engine to render our views because its similar to the HTML 
+<br> 
+<br> 
+We need to use these engines to render because we need to use operators like for, if and others and we know that pure HTML doesn't do that  
+For do that we need to install the ejs engine in the terminal: 
+
+```sh
+npm i ejs
+```
+
+Now we will create a index.ejs in the views folder to render the views
+```html
+index.ejs
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testes</title>
+</head>
+<body>
+    <h1>Eu fui renderizado</h1>
+</body>
+</html>
+```
+
+And in the controllers/homeController we will render ouw view that:
+```js
+exports.homePage = (req, res) => {
+  res.render("index");
+};
+exports.trataPost = (req, res) => {
+  res.send("Ei sou sua nova rota de post");
+};
+
+```
+## Static content vs Dinamic content
+Now let's create a folder for our application's static content, the static content is for example the bundle.js that will be loaded by our application. Static content is content that does not change with user interaction(video is static), it is always the same. Dynamic content is content that responds to user interaction. Sites that contain pure HTML and CSS are considered static, to be considered must have scripts.  
+The folder name's Public  
+And in the server.js we wil put that:
+
+```js
+app.use(express.static(path.resolve(__dirname, "Public")));
+```
+
+Now we wil create any file in the Public folder to test:
+
+```txt
+Alguma coisa
+```
+
+In the url let's put http://localhost:3000/teste.txt to see the text file  
+## Express with Webpack
+We will gonna create now a folder with the name Frontend and the folder src will stay with the backend

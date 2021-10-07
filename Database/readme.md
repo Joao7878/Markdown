@@ -6,10 +6,10 @@ A database can have huge storage, it's not fixed. That's why there are DBMS (Dat
 * Definition - Specify types, structures and restrictions of stored data (Metadata).
 * Construction - Process of storing data in some medium(meio).
 * Handling - Query functions, retrieve data, update data and delete data.
-* Sharing - Allow users and programs to access the database simultaneously.
-![Database](./img/database.png)
-![Database](./img/implementDB.png)
+* Sharing - Allow users and programs to access the database simultaneously.  
+![Database](../img/database.png)
+![Database](../img/implementDB.png)  
 ## Entity
 Entity is something or someone that represents something in real life  
-Every entity has simple or compound attributes
-![Entity](img/EntidadeAtributos.png) 
+Every entity has simple or compound attributes  
+![Entity](../img/EntidadeAtributos.png)   
