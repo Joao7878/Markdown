@@ -6,7 +6,7 @@ Salvador/BA
 **Idade**: 19 anos
 ## **Objetivo**
 Buscar oportunidade como desenvolvedor WEB ou atuação com segurança da
-informação, para expandir os conhecimentos e ampliar as experiências.
+informação, para expandir e compartilhar os conhecimentos e ampliar as experiências.
 ## **Formação Acadêmica**
 * Ensino Médio– Colégio Gregor Mendel Término: 11/2019 Status: Concluído.
 * Ensino Superior de Engenharia da Computação- SENAI CIMATEC Início: 02/2020 Término

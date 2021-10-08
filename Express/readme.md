@@ -343,4 +343,105 @@ Alguma coisa
 
 In the url let's put http://localhost:3000/teste.txt to see the text file  
 ## Express with Webpack
-We will gonna create now a folder with the name Frontend and the folder src will stay with the backend
+### **Briefly, what's in the frontend folder goes to the browser, what's in the src folder goes to the terminal.**
+We will gonna create now a folder with the name Frontend and the folder src will stay with the backend  
+Now let's copy the webpackconfig and our front end model  
+![Folder Structrure](../img/folders.png)  
+Important points: In the server.js file we are saying that our static files are in the Public folder, in our index.ejs it is referring to this folder and it is not necessary to reference the /Public only the /assets/js/bundle.js  
+![Important point](../img/important.png)  
+We brought the settings from our webpackmodel, then we added the assets from the static files and from our frontend folder, some things were with the wrong path but we've already configured
+## Middlewares
+In our route.metodo('/',middleware) every parameter after the route itself is middleware, which could be a function in the middle of the path or at the end of answering the client
+
+```javascript
+route.get('/',middleware)
+```
+
+Our homeController have 2 middlewares
+
+```javascript
+exports.homePage = (req, res) => {
+  res.render("index");
+};
+exports.trataPost = (req, res) => {
+  res.send("Ei sou sua nova rota de post");
+};
+
+```
+
+![Middleware](../img/middleware.png)
+
+![Middlewares in action](../img/cadeiademiddlewares.png)
+
+### Sessions are used to save temporary data like login and password when the client is logged
+
+To use session we can put req.session, like:
+
+```js
+function meuMiddleware(req, res, next) {
+  req.session = {
+    nome: "Luiz",
+    sobrenome: "Miranda",
+  };
+  console.log("passei no seu middleware");
+  next();
+}
+```
+We can do that with homeController.js
+
+```javascript
+exports.homePage = (req, res) => {
+  res.render("index");
+  console.log(`Bem vindo cliente ${req.session.nome} ${req.session.sobrenome}`);
+};
+exports.trataPost = (req, res) => {
+  res.send("Ei sou sua nova rota de post");
+};
+```
+
+And do that with the route.get('/')
+
+```javascript
+route.get("/", meuMiddleware, homeController.homePage);
+```
+
+Now we will use the middlewares in our server.js with all the routes, like:
+```javascript
+app.use(meuMiddleware);
+```
+
+We can only send a message if the form you want has the proper name.
+
+```javascript
+const meuMiddleware = (req, res, next) => {
+  if (req.body.cliente) {
+    console.log();
+    console.log(`Vi que você postou ${req.body.cliente}`);
+    console.log();
+  }
+  next();
+};
+```
+
+In the index.ejs 
+
+```html
+  <form action="/" method="post">
+            <label >Cliente</label>
+            <input type="text" name="cliente">
+            <button>submit</button>
+        </form>
+```
+
+But if we only want the first name, we can do:
+
+```javascript
+if (req.body.cliente) {
+    var primeiroNome = req.body.cliente.split(" ");
+    console.log();
+    console.log(`Vi que você postou ${primeiroNome[0]}`);
+    console.log();
+  }
+  input: João Pedro
+  output: Vi que você postou João
+```

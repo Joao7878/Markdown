@@ -12,4 +12,10 @@ A database can have huge storage, it's not fixed. That's why there are DBMS (Dat
 ## Entity
 Entity is something or someone that represents something in real life  
 Every entity has simple or compound attributes  
-![Entity](../img/EntidadeAtributos.png)   
+![Entity](../img/EntidadeAtributos.png)  
+![Atributtes](../img/atributos.png) 
+![NULL](../img/atributonull.png)
+![Ilustration](../img/representation.png)  
+### **Um atributo chave é um atributo único para cada entidade, EX: Não é possível ter 2 carros com o mesmo registro**
+A combinação do estado e do número formam um único registro para cada carro exclusivamente
+![Relationships](../img/relacionamentos.png)
