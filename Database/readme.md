@@ -19,3 +19,5 @@ Every entity has simple or compound attributes
 ### **Um atributo chave é um atributo único para cada entidade, EX: Não é possível ter 2 carros com o mesmo registro**
 A combinação do estado e do número formam um único registro para cada carro exclusivamente
 ![Relationships](../img/relacionamentos.png)
+The relationship between 2 entities is represented by a diamond
+![I]

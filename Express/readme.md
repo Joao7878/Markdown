@@ -155,6 +155,7 @@ Remember:
 ```
 
 # MVC AND EXPRESS
+![MVC](../img/diagramaMVC.png)
 
 ## Controllers
 We will use a folder only for routes and we will use the MVC pattern  
@@ -444,4 +445,120 @@ if (req.body.cliente) {
   }
   input: João Pedro
   output: Vi que você postou João
+```
+
+## **Models and MongoDB**
+Now let's use Models and MongoDB to configure our application. We did the account in the mongoDB atlas and did too our db server. Now let's install the packages, the mongoose  
+ Não queremos que nossa senha fique exposta, portanto iremos deixá-la fora do repositório do curso com o pacote dotenv.  
+Para conectar a nossa base de dados iremos por no server.js  
+
+```javascript
+const connectionString =
+  "mongodb+srv://Joao7878:VjawD8LfpKmzJmMU@database.bxhp7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+//Conectado a base de dados
+mongoose.connect(connectionString).then(() => {
+  console.log("conectado ao bd");
+});
+```
+
+Mas o nosso banco de dados só está se conectando após o servidor ser iniciado, isso pode gerar alguns erros, então faremos:
+
+```javascript
+mongoose
+  .connect(connectionString)
+  .then(() => {
+    console.log("conectando ao bd");
+    app.emit("pronto");
+  })
+  .catch((e) => {
+    console.log("Ocorreu um erro");
+  });
+```
+
+Quando o sinal for emitido, o app.on() irá dizer ao servidor que ele está pronto para iniciar
+
+```javascript
+app.on("pronto", () => {
+  app.listen(3000, () => {
+    console.log("Acessar http://localhost:3000");
+    console.log("i am running!");
+  });
+});
+```
+Agora para protegermos nossa senha e nossa url iremos criar na raiz do nosso projeto o arquivo .env para salvar essas informações da seguinta maneira
+
+```
+CONNECTIONSTRING = mongodb+srv://Joao7878:VjawD8LfpKmzJmMU@database.bxhp7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+```
+
+E no nosso server.js iremos deixar o código da seguinta maneira:
+
+```javascript
+const express = require("express");
+require("dotenv").config();
+const app = express();
+const mongoose = require("mongoose");
+//Conectado a base de dados
+mongoose
+  //Para esconder a nossa senha
+  .connect(process.env.CONNECTIONSTRING)
+  .then(() => {
+    console.log("conectado ao bd");
+    app.emit("pronto");
+  })
+  .catch((e) => {
+    console.log("erro de conexão ao banco");
+  });
+const routes = require("./routes.js");
+const path = require("path");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.resolve(__dirname, "Public")));
+app.set("views", path.resolve(__dirname, "src", "views"));
+app.set("view engine", "ejs");
+app.use(routes);
+app.on("pronto", () => {
+  app.listen(3000, () => {
+    console.log("Acessar http://localhost:3000");
+    console.log("i am running!");
+  });
+});
+```
+
+Now let's create a model folder in the src folder:
+![Model](../img/Model.png)
+In the file we will create again a mongoose require and a homeSchema const to be the model for our data.
+```javascript
+const mongoose = require("mongoose");
+//O esquema/modelagem dos nossos dados
+const homeSchema = new mongoose.Schema({
+  //Modelando nosso banco iremos passar alguns objetos com atributos
+  titulo: {
+    //Passando o tipo do objeto
+    type: String,
+    //Dizendo que o titulo é importante e não iremos cadastrar caso não tenha
+    required: true,
+  },
+  descricao: String,
+});
+//Criando o model e passando ele como Home
+const homeModel = mongoose.model("Home", homeSchema);
+//Agora iremos exportar o nosso model para ser utilizado
+module.exports = homeModel;
+```
+
+And now let's import the homeModel in the homeController to use and we need to create the homeModel "user" an that function returns a promisse like:
+```javascript
+homeController.js
+
+homeModel
+  .create({
+    titulo: "um titulo qualquer",
+    descricao: "uma descrição qualquer",
+  })
+  .then((dados) => {
+    console.log(dados);
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 ```
