@@ -33,7 +33,8 @@ Previsto: 12/2024 Status: Cursando.
 * Conhecimento Front-end básico(HTML,CSS,JS, Markdown) e bibliotecas (React)
 * Conhecimento Back-end (C#,Java,JS) com frameworks (.NET,Spring boot, NODEJS)
 * Desenvolvimento de sistemas embarcados com C e C++
-* Conhecimento em Python
+* Conhecimento em Python 
+* Conhecimento em padrões de projeto (MVC)
 ## **Atividades Complementares**
 * Equipe VrauRalla - NASA SPACE APPS CHALLENGE 2020.2.
 * 2° LUGAR no concurso de artigos científicos do I Seminário Desafio Pesquisador

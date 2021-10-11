@@ -549,7 +549,9 @@ module.exports = homeModel;
 And now let's import the homeModel in the homeController to use and we need to create the homeModel "user" an that function returns a promisse like:
 ```javascript
 homeController.js
-
+const homeModel = require("../models/homeModel");
+//Vamos pedir ao mongo para que ele crie o nosso esquema de dados
+//Isso nos retornará uma promisse
 homeModel
   .create({
     titulo: "um titulo qualquer",
@@ -562,3 +564,17 @@ homeModel
     console.log(e);
   });
 ```
+
+At now we are create data in the controller but the responsable for create, validate, delete,... is the model. Let's remove the import in the controller 
+## Session and Flash Messages
+Sessions are used for save somehing about the client's browser  
+For example when you log in for the first time to facebook and it asks you if you want to save your username and password in the browser  
+Every time the client accesses the server, if it does not clear the cookies and history, the server will send this cookie to log in automatically  
+The flash messages is not too used because have some libs and frameworks like react for doing the same thing  
+Seria como quando você erra sua senha no facebook e aparece a mensagem falando que você errou, essa mensagem aparece e precisa sumir, a flash message faz isso  
+Para instalar iremos digitar no terminal:
+
+```console
+npm i express-session connect-mongo connect-flash
+```
+
