@@ -578,3 +578,92 @@ Para instalar iremos digitar no terminal:
 npm i express-session connect-mongo connect-flash
 ```
 
+Now we gonna create a session const and a flash const:
+
+```javascript
+const session = require("express-session");
+const flash = require("express-flash");
+```
+
+And let's connect the session with the database:
+
+```javascript
+const MongoStore = require("connect-mongo")(session);
+```
+
+Now let's configure the session options with:
+
+```javascript
+const sessionOptions = session({
+  //Algo secreto que previne de adulteração por parte de terceiros
+  secret: "algo secreto",
+  //Onde a sessão ficará salva
+  //Passamos somente uma conexão que é o cliente que conecta com o mongodb: mongoose
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+  }),
+  //Faz a sessão ser salva novamente na store
+  resave: false,
+  //Força uma sessão "não inicializada" a ser salva na loja
+  saveUninitialized: false,
+  //Vamos dizer quanto tempo nossa sessão/cookie vai durar
+  cookie: {
+    //maxAge: diz quanto tempo em milesimos de segundos a sessão vai durar
+    //Vamos colocar 7 dias
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    //Vamos colocar somente para http
+    httpOnly: true,
+  },
+```
+
+Now let's use that with the flash:
+
+```javascript
+app.use(sessionOptions);
+app.use(flash());
+```
+
+When we create a session the express automatically create a req.session and we can use this req.session like: 
+
+```javascript
+  homeController.js
+  exports.homePage = (req, res) => {
+  req.session.user = { nome: luiz, logado: true };
+  res.render("index");
+};
+```
+
+This will stay in the db for 7 days because we said. After start the server with this req.session we can delete that line of code but will stay in the database, we can print in the console like: 
+
+```javascript
+  homeController.js
+  exports.homePage = (req, res) => {
+  console.log(req.session.user);
+  res.render("index");
+};
+output in console: 
+{nome: 'luiz', logado:true}
+```
+
+In the mongodb will appear:
+![Session](../img/session.png)
+To use the flash messages we will put in the controller like:
+
+```javascript
+homeController.js 
+exports.homePage = (req, res) => {
+  console.log(req.session.user);
+  req.flash("info", "Hello world");
+  req.flash("error", "error");
+  req.flash("success", "success");
+  res.render("index");
+};
+```
+
+After we flash this message we can catch then and do something like:
+
+```javascript
+console.log(req.flash("info"), req.flash("error"), req.flash("success"));
+```
+
+But that will work only 1 time and after will be deleted.
