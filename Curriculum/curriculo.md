@@ -17,7 +17,7 @@ Previsto: 12/2024 Status: Cursando.
     **Cargo**: Líder de Projeto  
     Desenvolver e comandar projetos relacionados a tecnologia.
 * **Empresa**: TEC-H2 RACING CIMATEC 
-  *  **Período**: 2021 - Presente  
+  *  **Período**: 2021(Janeiro) -  2021(Setembro)
     **Cargo**: Desenvolvedor para sistemas embarcados  
     Desenvolver softwares para sistemas embarcados com finalidade de
     utilização em carros de corrida movidos a hidrogênio.
@@ -34,7 +34,7 @@ Previsto: 12/2024 Status: Cursando.
 * Conhecimento Back-end (C#,Java,JS) com frameworks (.NET,Spring boot, NODEJS)
 * Desenvolvimento de sistemas embarcados com C e C++
 * Conhecimento em Python 
-* Conhecimento em padrões de projeto (MVC)
+* Conhecimento em padrões de projeto (MVC, GRASP)
 ## **Atividades Complementares**
 * Equipe VrauRalla - NASA SPACE APPS CHALLENGE 2020.2.
 * 2° LUGAR no concurso de artigos científicos do I Seminário Desafio Pesquisador
