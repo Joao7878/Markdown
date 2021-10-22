@@ -1,5 +1,5 @@
 # Express with node
-
+**PARTES EM PORTUGUÊS SÃO MAIS IMPORTANTES CASO ESTEJAM EM NEGRITO SE NÃO ESTIVER FOI PREGUIÇA MSM DPS LEMBRA DE TROCAR PRA INGLÊS**  
 For development better use linux, as the vast majority of servers are linux servers
 ## Nodemon
 To start nodemon in package.json scripts let's add start and put nodemon server.js
@@ -567,6 +567,7 @@ homeModel
 
 At now we are create data in the controller but the responsable for create, validate, delete,... is the model. Let's remove the import in the controller 
 ## Session and Flash Messages
+## **HAVE 1 MORE SECTION FOR SESSIONS AND COOKIES BELLOW**  
 Sessions are used for save somehing about the client's browser  
 For example when you log in for the first time to facebook and it asks you if you want to save your username and password in the browser  
 Every time the client accesses the server, if it does not clear the cookies and history, the server will send this cookie to log in automatically  
@@ -754,3 +755,18 @@ app.on("pronto", () => {
             </form>
 ```  
 
+# **Sessões e Cookies**
+## *Se tiver dúvida leia tudo*
+## *Cookies*
+**O protocolo HTTP é um método stateless ou seja toda informação enviada por uma resposta ou requisição é perdida após ser entregue para o servidor ou o cliente. No caso de dados fixos como a criação de um usuário, a informação será salva em um banco de dados e não será perdida. No entanto, por exemplo, se um usuário está ou não logado no site, essa informação não será salva no banco de dados, pois não tem relevância e gastaria memória para algo que é temporário. No entanto, é necessário saber quando o usuário está logado para poder tomar determinadas decisões.**   
+**Temos então um problema já que é preciso salvar informação, não podemos salvar no banco de dados e o protocolo HTTP é stateless. Então surgem os cookies, que são nada mais do que pedaços de memória que são enviados entre requisições e respostas para salvar algo, ou seja, quando uma requisição é feita ela envia um cookie(que é um arquivo contendo os dados) e é armazenado no servidor até que uma resposta seja dada, quando a resposta é dada o cookie é enviado novamente para o cliente.**  
+**Por exemplo, quando um usuário está logado na sua rede social e clica no botão de amigos, com isso é feita a requisição GET que acionará uma função para listar os amigos do usuário, nessa requisição GET é enviado um cookie com por exemplo o ID do usuário para garantir que ele está logado, no lado do servidor é verificado se esse ID existe, caso não exista a resposta enviada será provavelmente um erro ou uma página falando que precisa estar logado, mas se o ID existir no cookie, ele será verificado, validado e enviado com a resposta e a listagem dos amigos do usuário. Isso é um cookie.**  
+<br>
+<br>
+## *Sessões*
+**Sessões, diferentemente dos cookies, são espaços de memória presentes no servidor que enviaremos informação e resgataremos informação, sendo um espaço de memória no servidor é importante lembrar que não podemos armazenar dados muito grandes nas sessões, pois é uma memória RAM!**  
+**Porém, como dito anteriormente, o protocolo HTTP é stateless, então como ele sabe que a nossa sessão existe, se toda informação é perdida após o envio da requisição ou da resposta? Aí entram os cookies, eles são enviados, por respostas e requisições, com o ID da sessão e a cada envio a sessão é verificada e validada.**  
+**Com isso voltamos ao exemplo do usuário logado e querendo ver a lista de amigos, com as sessões, seriam enviados e recebidos cookies com o ID da determinada sessão para comprovar que o usuário está logado, quando o usuário deslogar a sessão será encerrada e apagada e os cookies não serão mais enviados.**
+## *Cookies vs Sessões*
+**Vimos os dois casos de utilização de cookies e de sessões, mas quando devemos utilizar um cookie e uma sessão? Um cookie deve ser utilizado quando o servidor precisa de uma resposta básica e simples do cliente, como quando aparece um *pop-up* e o usuário aperta a opção que não quer mais ver aquele *pop-up*, já as sessões são utilizadas em momentos mais importantes como para verificar se um usuário está ou não logado. Cookies podem ser acessados por qualquer usuário do computador e estão sujeitos a serem interceptados por algum ataque malicioso, por isso não se deve transportar informações importantes neles, além de que eles expiram na data que for especificada. Já as sessões não são expostas e ainda expiram por padrão 20 minutos após o *timeout* do usuário.**  
+**Portanto, no exemplo do login de usuário utilize sessões e não cookies!**
