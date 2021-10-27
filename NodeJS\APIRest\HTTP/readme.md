@@ -80,13 +80,21 @@ Para ser uma API REST é necessário que a API siga 6 regras:
 - Header Params
 - - Vão no cabeçalho como tokens e afins
 - - https://app.rocketseat.com.br/node/ o node é o header params
-- Query Params ou Query Strings
+- Query Params ou Query Strings => Paginação/filtro de busca
 - - https://endereco.com.br/v1/user?page=2&limit=50
 - - Chaves = page e limit / Valor = 2 e 50 / Separação = &
--  Route Params
+-  Route Params => Identificar/editar/deletar/buscar um recurso
 -  - https://endereco.com.br/v1/user/{id} ex: req.params.id
 - - Podemos passar receber id pelas rotas  
-- Body Params
+- Body Params => Objetos para inserção/alteração ex:req.body
+- - Ativar app.use(express.json()) para poder lidar com json no express
 - - Parâmetros no corpo do json
 ## Boas Práticas API Rest
 ![Boas Práticas](../img/APIREST.png)
+## JSON VS SEND
+Na nossa API REST iremos mandar dados para o front end conseguir colocar esses dados na tela, para isso iremos utilizar o res.json({}) para enviar. Caso não fosse uma API Rest iríamos utilizar o res.send para mostrar na tela.
+# Insomnia
+O Insomnia é um software gratuito para testar APIs REST, **o Insomnia ajuda na hora de testar a nossa API**  
+Para o método GET é fácil testar sem utilizar nenhum software, porém para os métodos POST, PUT, PATCH, DELETE é extremamente cansativo ter que criar formulários sempre que for preciso testar se esses métodos estão funcionando, mas o Insomnia resolve esse problema. 
+## **BASICAMENTE O INSOMNIA TESTA O NOSSO CRUD**
+Outra opção é o postman.

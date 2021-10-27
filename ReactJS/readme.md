@@ -1,0 +1,3 @@
+# **ReactJS**
+O ReactJS é uma biblioteca para construção de interfaces, portanto qualquer interface é possível construir com react. É um sistema SPA(Single Page Application), ou seja, não é o padrão antigo em que o back-end era quem renderizava o HTML.   
+Fizemos toda a configuração padrão do babel e do webpack e podemos mudar o nome do index.js para index.jsx, pois é o padrão para dizer que estamos trabalhando com html dentro do js, não muda nada, mas é interessante.

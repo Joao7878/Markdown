@@ -32,7 +32,9 @@ Previsto: 12/2024 Status: Cursando.
 * Lógica de Programação e Programação Orientada a Objetos
 * Conhecimento Front-end básico(HTML,CSS,JS, Markdown) e bibliotecas (React)
 * Conhecimento Back-end (C#,Java,JS) com frameworks (.NET,Spring boot, NODEJS)
+* Foco em NodeJS com Typescript
 * Desenvolvimento de sistemas embarcados com C e C++
+* Docker
 * Conhecimento em Python 
 * Conhecimento em padrões de projeto (MVC, GRASP)
 ## **Atividades Complementares**
