@@ -20,3 +20,11 @@ Instalar Eslint no vscode
 ![Notion](../img/notion7.png)
 ![Notion](../img/notion8.png)
 ![Notion](../img/notion9.png)
+## Watch server
+Agora para não precisarmos ficar rodando o yarn tsc, iremos instalar o ts-node-dev para desenvolvimento e futuramente para produção  
+Dentro do nosso package.json, vamos adicionar o script para rodar o ts-node-dev  
+"dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts"  
+Para rodar o ts-node-dev, precisamos executar o comando: yarn dev  
+A flag --respawn é para que o ts-node-dev rode novamente quando o arquivo for alterado  
+A flag --ignore-watch é para que o ts-node-dev ignore as alterações no arquivo node_modules  
+Iremos acessar o tsconfig.json para alterar o strict para false, pois o typescript já está configurado para alertar quando houver erros  
