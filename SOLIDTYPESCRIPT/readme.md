@@ -127,4 +127,8 @@ categoriesRoutes.get("/categories", (req, res) => {
 
 export default categoriesRoutes;
 ```
-
+## Criando as especificações
+Vamos dar continuidade ao nosso projeto criando as especificações do nosso carro, com base no nosso diagrama:
+![Diagrama do Projeto](../img/diagrama.png)  
+Para criar a nossa entidade especificações iremos utilizar os mesmos conceitos feitos para as categorias, porém se fizermos isso o repositório e os serviços ficarão muito grandes, então iremos englobar as pastas em módulos e iremos separar os módulos com base no tema:
+![Projeto](../img/org.png)
