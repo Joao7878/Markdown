@@ -132,3 +132,131 @@ Vamos dar continuidade ao nosso projeto criando as especificações do nosso car
 ![Diagrama do Projeto](../img/diagrama.png)  
 Para criar a nossa entidade especificações iremos utilizar os mesmos conceitos feitos para as categorias, porém se fizermos isso o repositório e os serviços ficarão muito grandes, então iremos englobar as pastas em módulos e iremos separar os módulos com base no tema:  
 ![Projeto](../img/org.png)  
+
+## Use cases
+Os Use cases são as funcionalidades do nosso projeto, como listar algo ou criar algo  
+
+Vamos diminuir a carga dos nossos arquivos de rota que atualmente estão assim:
+
+```javascript
+import { Router } from "express";
+
+import { SpecificationsRepositories } from "../modules/cars/repositories/SpecificationsRepositories";
+import { CreateSpecificationService } from "../modules/cars/services/CreateSpecificationService";
+
+const specificationsRoutes = Router();
+const specificationsRepositories = new SpecificationsRepositories();
+const newSpecification = new CreateSpecificationService(
+  specificationsRepositories
+);
+
+specificationsRoutes.post("/specifications", (request, response) => {
+  try {
+    const { name, description } = request.body;
+    newSpecification.execute({ name, description });
+    return response.status(201).json({ message: "Specification created" });
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
+});
+specificationsRoutes.get("/specifications", (request, response) => {
+  try {
+    const specifications = specificationsRepositories.list();
+    return response.json(specifications);
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
+});
+
+export { specificationsRoutes };
+
+```
+Agora as nossas rotas vão receber a requisição e enviar uma resposta sem precisar chamar classes e funções, vamos deixá-las como deixamos no MVC. Para isso vamos utilizar os use cases.  
+
+Os use cases são dividos basicamente em 3 partes:  
+Controllers  
+UseCases  
+Index  
+Onde o UseCase faz o papel que era do service de executar a função, o controller faz o papel da rota de request e response e o index faz a instância de tudo:
+
+![Use Cases](../img/usecase.png)  
+Criado o use case para criar uma categoria, agora iremos fazer o mesmo para lista uma categoria:  
+![ListCategory](../img/listCategory.png)  
+A seguir estarão os esquemas de código de cada arquivo do useCase:  
+UseCase do createCategory  
+![UseCase](../img/createCategory.png)  
+Controller do createCategory  
+![Controller](../img/createCategoryController.png)  
+Index do createCategory  
+![Index](../img/indexcreateCategory.png)   
+Então esse é o esquema do nosso createCategory e do nosso listCategory, perceba que o index faz a instância das classes.  
+Porém se cada pasta tem um index e o index faz uma instância, então temos 2 instâncias diferentes.  
+Isso significa que a categoria que será criada no createCategory estará em uma instância diferente do listCategory, ou seja, o listCategory continuará vazio.  
+Então como resolvemos esse problema de instâncias diferentes? Utilizaremos o Singleton Pattern.
+## Singleton Pattern
+**O Singleton especifica que apenas uma instância da classe pode existir, e esta será utilizada por toda a aplicação. Dessa forma temos apenas um ponto de acesso central a esta instância da classe.**  
+O Singleton Pattern reduz o consumo de memória, porém não devemos utilizá-lo sempre, apenas em situações que sejam necessárias, como:  
+- Quando você precisar controlar a concorrência de acesso a recursos compartilhados;
+- Quando uma classe for utilizada com frequência por várias partes distintas do sistema, e essa classe não gerencia nenhum estado da aplicação;  
+  
+Principalmente quando iremos utilizar recursos compartilhados da mesma classe, como no exemplo dos use cases.  
+Então iremos alterar o nosso CategoryRepository:  
+
+![Category Repository](../img/categoryRepository.png)  
+e o nosso index agora será:
+
+```js
+import CategoriesRepositories from "../../repositories/implementations/CategoriesRepositories";
+import { ListCategoryController } from "./listCategoryController";
+import { ListCategoryUseCase } from "./listCategoryUseCase";
+
+const listCategoryRepository = CategoriesRepositories.getInstance();
+const listCategoryUseCase = new ListCategoryUseCase(listCategoryRepository);
+const listCategoryController = new ListCategoryController(listCategoryUseCase);
+export { listCategoryUseCase, listCategoryController };
+```
+
+Agora iremos somente dividir os nossos repositórios e iremos colocar as implementações separadas das interfaces, para isso iremos criar uma pasta somente para as implementações:  
+![Pasta de Implementações](../img/implementations.png)  
+E agora iremos migrar as nossas especificações para os useCases e portanto iremos excluir os serviços, modificar o repositório e refatorar as rotas, o mesmo que fizemos com as categorias.
+## Documentação da API
+**É extremamente importante uma boa documentação para uma API!!**  
+Sabendo disso, tem algumas ferramentas que auxiliam na hora de fazer uma documentação, uma delas é a que iremos utilizar: Swagger.  
+Para utilizar o swagger iremos instalar o pacote dele no projeto: yarn add swagger-ui-express  e para o typescript iremos fazer yarn add @types/swagger-ui-express -D  
+Para utilizar ele iremos importá-lo no nosso server.ts:  
+
+```javascript
+import express from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerfile from "./swagger.json"
+
+import categoriesRoutes from "./routes/categories.routes";
+import { specificationsRoutes } from "./routes/specifications.routes";
+
+const app = express();
+app.use(express.json());
+// Url to swagger documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFIle));
+app.use(categoriesRoutes);
+app.use(specificationsRoutes);
+app.listen(3000, () => console.log("listening on 3000"));
+
+```
+
+Iremos usá-lo e definir uma rota onde ficará a nossa documentação, o nosso servidor  o iremos passar no setup um arquivo json que criamos na raiz da pasta src.  
+Para funcionar iremos adicionar o resolveJsonModule no tsconfig.json para ele aceitar .json.  
+No arquivo swagger.json iremos adicionar a seguinte configuração  
+
+```json
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CarRent Documentation",
+    "description": "CarRent API documentation",
+    "version": "1.0.0"
+  }
+}
+```
+
+E na nossa rota api-docs terá:  
+![Swagger](../img/swagger.png)  
