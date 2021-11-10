@@ -260,3 +260,4 @@ No arquivo swagger.json iremos adicionar a seguinte configuração
 
 E na nossa rota api-docs terá:  
 ![Swagger](../img/swagger.png)  
+As informações estão no github!
