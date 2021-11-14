@@ -60,5 +60,20 @@ Para verificar se está funcionando basta digitar docker logs nomeDoContainer  -
 ![Docker-compose](../img/docker-compose.png)  
 A versão é a versão que está disponível para nós no momento, os serviços são de fato todos os serviços que utilizaremos na nossa aplicação, então iremos colocar todos dentro dele, por enquanto temos apenas o nosso app que contém a nossa aplicação, mas ainda vamos adicionar o banco de dados que iremos utilizar, a nossa build é toda a nossa aplicação por isso contém o ponto, as portas estão a porta do host e do docker e os volumes primeiramente tem o . que significa toda nossa aplicação exceto o dockerignore e o que está dentro dele e o (:) significa passar para no caso para o diretório, então se lê: passar tudo dessa pasta para o diretório tal  
 ## Comandos Docker
-- Docker ps -> Mostra todos os containers rodando
-- - Docker ps -a -> Mostra todos os containers(inclusive os que estão off)
+- docker ps -> Mostra todos os containers rodando
+- - docker ps -a -> Mostra todos os containers(inclusive os que estão off)
+- docker rm (id ou nome)(container tem que estar parado) -> para remover o container
+- docker start (id ou nome) -> para iniciar
+- docker stop (id ou nome) -> para parar o container
+- docker exec -it (id ou nome) /bin/bash -> para acessar o terminal do container
+- - ctrl+d para sair
+- docker logs (nome ou id) -> mostra os logs
+- - docker logs (nome ou id) -f -> para ficar assistindo os logs
+
+Existem outros
+- ## Comandos Docker-compose
+- docker-compose up -> para criar o docker-compose
+- - docker-compose up -d -> para criar no background
+- docker-compose start -> para rodar o container
+- docker-compose stop -> para o container
+- docker-compose down -> remove tudo de dentro container
