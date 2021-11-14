@@ -58,4 +58,7 @@ Precisamos somente digitar docker-compose up no terminal para rodar a aplicaçã
 Caso queiramos que ele funcione no background, basta digitar docker-compose up -d  
 Para verificar se está funcionando basta digitar docker logs nomeDoContainer  -f  
 ![Docker-compose](../img/docker-compose.png)  
-A versão é a versão que está disponível para nós no momento, os serviços são de fato todos os serviços que utilizaremos na nossa aplicação, então iremos colocar todos dentro dele, por enquanto temos apenas o nosso app que contém a nossa aplicação, mas ainda vamos adicionar o banco de dados que iremos utilizar, a nossa build é toda a nossa aplicação por isso contém o ponto, as portas estão a porta do host e do docker e os volumes primeiramente tem o . que significa toda nossa aplicação exceto o dockerignore e o que está dentro dele e o (:) significa passar para no caso para o diretório, então se lê: passar tudo dessa pasta para o diretório tal
+A versão é a versão que está disponível para nós no momento, os serviços são de fato todos os serviços que utilizaremos na nossa aplicação, então iremos colocar todos dentro dele, por enquanto temos apenas o nosso app que contém a nossa aplicação, mas ainda vamos adicionar o banco de dados que iremos utilizar, a nossa build é toda a nossa aplicação por isso contém o ponto, as portas estão a porta do host e do docker e os volumes primeiramente tem o . que significa toda nossa aplicação exceto o dockerignore e o que está dentro dele e o (:) significa passar para no caso para o diretório, então se lê: passar tudo dessa pasta para o diretório tal  
+## Comandos Docker
+- Docker ps -> Mostra todos os containers rodando
+- - Docker ps -a -> Mostra todos os containers(inclusive os que estão off)
