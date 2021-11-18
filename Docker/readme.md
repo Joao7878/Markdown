@@ -63,6 +63,7 @@ A versão é a versão que está disponível para nós no momento, os serviços 
 - docker ps -> Mostra todos os containers rodando
 - - docker ps -a -> Mostra todos os containers(inclusive os que estão off)
 - docker rm (id ou nome)(container tem que estar parado) -> para remover o container
+- docker run -> para criar e iniciar um container
 - docker start (id ou nome) -> para iniciar
 - docker stop (id ou nome) -> para parar o container
 - docker exec -it (id ou nome) /bin/bash -> para acessar o terminal do container
@@ -77,3 +78,6 @@ Existem outros
 - docker-compose start -> para rodar o container
 - docker-compose stop -> para o container
 - docker-compose down -> remove tudo de dentro container
+
+## Pontos sobre o Docker
+Não conseguimos modificar imagens, elas são read-only, mas temos uma camada de escrita que chamamos de layer onde podemos acessar o container e escrever nele.

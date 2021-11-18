@@ -44,3 +44,27 @@ A relação entre entidades fracas e fortes é feita por um losango duplo.
 Com isso sublinhamos com pontilhado o atributo que faz essa relação ser única.
 ![Nomenclatura](../img/Nomenclatura.png)  
 ![Nomenclatura](../img/Nomenclatura2.png)  
+
+## Normalização
+A normalização é a técnica de transformar um conjunto de dados em um conjunto de dados normalizados.  
+Normalização é aplicada aos dados de entrada para que possam ser processados por um algoritmo.  
+A normalização preza por prevenir de anomalias de inclusão, exclusão e modificação.  
+As anomalias de inclusão acontecem quando um dado é incluso e pode causar problemas no banco.  
+As anomalias de exclusão acontecem quando um dado é excluído e pode causar problemas no banco.  
+As anomalias de modificação acontecem quando um dado é modificado e pode causar problemas no banco.
+Ex: não deve ser possível cadastrar um livro sem um autor, portanto se o autor for removido, o livro também deve ser removido, se o autor for alterado, o nome do autor do livro também deve ser alterado.  
+Caso não esteja de acordo com o exemplo acima, o banco de dados pode ser inconsistente.  
+Para resolver esses problemas, é necessário aplicar a normalização.
+### Aplicando a normalização
+A normalização é composta por 3 partes:
+* **Preparação** - Preparação é a parte de preparar os dados para que possam ser normalizados.
+* **Normalização** - Normalização é a parte de normalizar os dados.
+* **Análise** - Análise é a parte de analisar os dados normalizados.
+Para isso temos as formas normais que devem ser colocadas em prática na modelagem do banco de dados:  
+* **Primeira Forma** - Primeira forma é a forma mais simples, onde o banco de dados é criado com as tabelas e os atributos, tal que não deve existir atributos multivalorados, duplicados, compostos e tabelas dentro de tabelas.  
+Ex: Em uma tabela de clientes temos o atributo nome, que é um atributo único, e o atributo cpf, que é único, temos também o atributo endereço, que é um atributo composto, que tem o atributo rua, que é um atributo único, e o atributo bairro, que é um atributo único e tem o ID do cliente que é o atributo chave.  
+Aplicando a primeira forma normal iremos separar os atributos em tabelas, onde cada tabela terá um atributo único.  
+O endereço agora será uma tabela separada contendo os atributos únicos e será identificada pelo ID do cliente.
+* **Segunda Forma** - Segunda forma é a forma que fala que os atributos em uma tabela devem ser totalmente dependentes da chave primária sendo ela composta ou não.  
+![2FN](../img/2FN.png)  
+![Tabela normalizada](../img/tabela2fn.png)  
