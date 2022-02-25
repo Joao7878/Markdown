@@ -1,2 +1,0 @@
-Líder de projeto para desenvolver um software de visão computacional e mapeamento 3D com Python, back-end do site da empresa com NodeJS e front-end com ReactJS.  
-Desenvolvedor para sistemas embarcados de carros de corrida elétricos com as linguagens C e Arduino.

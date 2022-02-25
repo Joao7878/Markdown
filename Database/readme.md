@@ -68,3 +68,8 @@ O endereço agora será uma tabela separada contendo os atributos únicos e ser�
 * **Segunda Forma** - Segunda forma é a forma que fala que os atributos em uma tabela devem ser totalmente dependentes da chave primária sendo ela composta ou não.  
 ![2FN](../img/2FN.png)  
 ![Tabela normalizada](../img/tabela2fn.png)  
+* **Terceira Forma**   
+![3FN](../img/3fn.png)  
+![3fn requisitos](../img/tabela3fn.png)  
+![tbl3fn](../img/tbl3fn.png)  
+![tabelanormalizada3fn](../img/tabelanormalizada3fn.png)  

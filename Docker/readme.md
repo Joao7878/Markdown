@@ -20,7 +20,7 @@ Apenas troque a linha 3 a parte do ./usr/app por ./
 - A segunda linha tem o WORKDIR que representa a pasta em que serão armazenadas as informações assim que o docker rodar o programa.
 - Logo apoś vem o comando COPY que estará copiando o arquivi package.json para o nosso diretório de trabalho do docker
 - Após copiar o arquivo para dentro do diretório, iremos instalar as dependências do package.json no diretório
-- Na 4 linha mandamos ele copiar tudo do projeto, exceto os itens ignorados pelo dockerignore, para dentro do diretório.
+- Na linha 5 mandamos ele copiar tudo do projeto, exceto os itens ignorados pelo dockerignore, para dentro do diretório.
 - Agora com o EXPOSE iremos expor a porta que estamos utilizando dentro do nosso container
 - E por fim iremos passar o cmd para rodar o script, por padrão é separado dentro de array, então iremos passar o npm com o comando pra rodar(run) e o dev que é o mesmo que yarn dev que utilizamos sempre
 
@@ -80,4 +80,17 @@ Existem outros
 - docker-compose down -> remove tudo de dentro container
 
 ## Pontos sobre o Docker
-Não conseguimos modificar imagens, elas são read-only, mas temos uma camada de escrita que chamamos de layer onde podemos acessar o container e escrever nele.
+- Não conseguimos modificar imagens, elas são read-only, mas temos uma camada de escrita que chamamos de layer onde podemos acessar o container e utilizar ele.  
+- Containers são voláteis, iremos criar, remover, iniciar e parar containers a todo momento.
+- Para salvar os dados do container e não perdemos os dados da aplicação, iremos utilizar os volumes.
+- Os volumes ficam salvos dentro do docker host e não do container, assim não perdemos os dados da aplicação.
+## Imagens
+As imagens do docker hub são baseadas em versões e quando você cria uma imagem, ela é baseada em uma versão. Por padrão a versão é sempre a mais atualizada, mas se quisermos utilizar uma versão antiga, basta utilizar o comando:  
+docker pull nomeDaImagem:versaoAntiga ex:  
+docker pull nomeDaImagem:1.0.0
+## Inputs
+Se por acaso rodarmos uma aplicação que tenha um input no console, por padrão o docker não está configurado para aceitar inputs, então temos que configurar o docker para aceitar inputs. Na hora de rodarmos o container basta utilizar a tag -i para poder digitar no terminal e a tag -t para poder ver o que está sendo digitado e perguntado, podemos utilizar de forma mais fácil -it.  
+## Volumes
+Quando rodamos um container no docker, os dados que são colocados na execução são perdidos após o container ser parado. Para resolver isso, existem os volumes que pegam os dados e os salvam no docker host, então quando o container é parado, os dados são salvos no host, e quando o container é iniciado, os dados são recuperados do host e colocados no container.  
+Isso também nos dá a possibilidade de compartilhar dados entre containers differentes, por exemplo, se quisermos compartilhar um banco de dados entre os containers, podemos utilizar volumes.
+## Portas
